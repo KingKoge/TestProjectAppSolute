@@ -1,7 +1,5 @@
 package com.ssru.mrsmile.testprojectappsolute.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.parceler.Parcel;
 import org.parceler.ParcelConstructor;
 
@@ -11,11 +9,8 @@ import org.parceler.ParcelConstructor;
 @Parcel
 public class Subject {
 
-    @SerializedName("ts_id")
     private String subject_id;
-    @SerializedName("ts_subject_name")
     private String subject_name;
-    @SerializedName("ts_section")
     private String subject_section;
 
     @ParcelConstructor

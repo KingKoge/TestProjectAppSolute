@@ -10,12 +10,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.ssru.mrsmile.testprojectappsolute.R;
-import com.ssru.mrsmile.testprojectappsolute.model.Department;
 import com.ssru.mrsmile.testprojectappsolute.model.Faculty;
 import com.ssru.mrsmile.testprojectappsolute.presenter.FacultyService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DepartmentActivity extends AppCompatActivity {
 
@@ -32,7 +28,7 @@ public class DepartmentActivity extends AppCompatActivity {
 
         Faculty faculty = null;
         if (faculty_id != -1) {
-            faculty = FacultyService.getIntance().getDepartment(faculty_id);
+            faculty = FacultyService.getIntance().getFaculty(faculty_id);
         }
 
         final AdapterViewDepartment adapterViewDepartment = new AdapterViewDepartment(getApplicationContext(), faculty);

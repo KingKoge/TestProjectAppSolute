@@ -1,7 +1,5 @@
 package com.ssru.mrsmile.testprojectappsolute.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.parceler.Parcel;
 import org.parceler.ParcelConstructor;
 
@@ -14,13 +12,9 @@ import java.util.List;
 @Parcel
 public class Faculty {
 
-    @SerializedName("tf_id")
     private String faculty_id ;
-    @SerializedName("tf_faculty_name")
     private String faculty_name;
-    @SerializedName("tf_image_file_name")
     private String faculty_image;
-    @SerializedName("Department")
     private List<Department> departments;
 
     private int resourceImage;
