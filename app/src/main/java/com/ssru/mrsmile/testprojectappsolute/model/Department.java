@@ -2,11 +2,15 @@ package com.ssru.mrsmile.testprojectappsolute.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
 import java.util.List;
 
 /**
  * Created by Mr.Smile on 11/4/2559.
  */
+@Parcel
 public class Department {
 
     @SerializedName("td_id")
@@ -16,6 +20,7 @@ public class Department {
     @SerializedName("Subject")
     private List<Subject> subjects;
 
+    @ParcelConstructor
     public Department(String department_id, String department_name, List<Subject> subjects) {
         this.department_id = department_id;
         this.department_name = department_name;

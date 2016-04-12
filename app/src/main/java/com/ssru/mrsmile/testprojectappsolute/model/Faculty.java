@@ -2,11 +2,16 @@ package com.ssru.mrsmile.testprojectappsolute.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
 import java.util.List;
 
 /**
  * Created by Mr.Smile on 11/4/2559.
  */
+
+@Parcel
 public class Faculty {
 
     @SerializedName("tf_id")
@@ -17,6 +22,16 @@ public class Faculty {
     private String faculty_image;
     @SerializedName("Department")
     private List<Department> departments;
+
+    private int resourceImage;
+
+    @ParcelConstructor
+    public Faculty(String faculty_id, String faculty_name, String faculty_image, List<Department> departments) {
+        this.faculty_id = faculty_id;
+        this.faculty_name = faculty_name;
+        this.faculty_image = faculty_image;
+        this.departments = departments;
+    }
 
     public String getFaculty_id() {
         return faculty_id;
@@ -48,5 +63,13 @@ public class Faculty {
 
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
+    }
+
+    public int getResourceImage() {
+        return resourceImage;
+    }
+
+    public void setResourceImage(int resourceImage) {
+        this.resourceImage = resourceImage;
     }
 }

@@ -3,6 +3,7 @@ package com.ssru.mrsmile.testprojectappsolute.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class FacultyFragment extends Fragment {
                 Intent intent = new Intent(rootView.getContext() ,DepartmentActivity.class );
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("faculty_id" , 1);
+                Log.e("FacultyFragment" , "faculty_id = 1");
                 startActivity(intent);
             }
         });
@@ -38,6 +40,7 @@ public class FacultyFragment extends Fragment {
                 Intent intent = new Intent(rootView.getContext() ,DepartmentActivity.class );
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("faculty_id" , 2);
+                Log.e("FacultyFragment" , "faculty_id = 2");
                 startActivity(intent);
             }
         });
@@ -49,6 +52,7 @@ public class FacultyFragment extends Fragment {
                 Intent intent = new Intent(rootView.getContext() ,DepartmentActivity.class );
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("faculty_id" , 3);
+                Log.e("FacultyFragment" , "faculty_id = 3");
                 startActivity(intent);
             }
         });
@@ -60,6 +64,7 @@ public class FacultyFragment extends Fragment {
                 Intent intent = new Intent(rootView.getContext() ,DepartmentActivity.class );
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("faculty_id" , 4);
+                Log.e("FacultyFragment" , "faculty_id = 4");
                 startActivity(intent);
             }
         });

@@ -3,12 +3,12 @@ package com.ssru.mrsmile.testprojectappsolute.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 
 import com.ssru.mrsmile.testprojectappsolute.R;
 import com.ssru.mrsmile.testprojectappsolute.presenter.APIConnection;
+import com.ssru.mrsmile.testprojectappsolute.presenter.OpenHelperController;
 
 
 public class SplashScreen extends Activity {
@@ -26,8 +26,10 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splash_screen);
         handler = new Handler();
 
-        APIConnection connection = new APIConnection();
-        connection.getCall();
+       /* APIConnection connection = new APIConnection();
+        connection.getCall();*/
+
+        OpenHelperController controller = new OpenHelperController(getApplicationContext());
 
         runnable = new Runnable() {
             public void run() {

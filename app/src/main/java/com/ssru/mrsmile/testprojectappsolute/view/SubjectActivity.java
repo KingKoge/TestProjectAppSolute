@@ -11,13 +11,10 @@ import android.widget.ListView;
 
 import com.ssru.mrsmile.testprojectappsolute.R;
 import com.ssru.mrsmile.testprojectappsolute.model.Department;
-import com.ssru.mrsmile.testprojectappsolute.model.Faculty;
-import com.ssru.mrsmile.testprojectappsolute.presenter.FacultyService;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.parceler.Parcels;
 
-public class DepartmentActivity extends AppCompatActivity {
+public class SubjectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +25,12 @@ public class DepartmentActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-        int faculty_id = intent.getIntExtra("faculty_id" , -1);
+        Department department = Parcels.unwrap(intent.getParcelableExtra("department"));
 
-        Faculty faculty = null;
-        if (faculty_id != -1) {
-            faculty = FacultyService.getIntance().getDepartment(faculty_id);
-        }
-
-        final AdapterViewDepartment adapterViewDepartment = new AdapterViewDepartment(getApplicationContext(), faculty);
+        final AdapterViewSubject adapterViewSubject = new AdapterViewSubject(getApplicationContext(), department);
 
         ListView listView = (ListView) findViewById(R.id.listViewDepartment);
-        listView.setAdapter(adapterViewDepartment);
+        listView.setAdapter(adapterViewSubject);
 
         TextWatcher watcher = new TextWatcher() {
             @Override
@@ -53,7 +45,7 @@ public class DepartmentActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                adapterViewDepartment.filter(s.toString());
+                adapterViewSubject.filter(s.toString());
             }
         };
 
@@ -63,4 +55,6 @@ public class DepartmentActivity extends AppCompatActivity {
         inputText.addTextChangedListener(watcher);
 
     }
+
+
 }
