@@ -20,8 +20,23 @@ import okhttp3.OkHttpClient;
 @SuppressWarnings("unused")
 public class ClientBuilder {
 
+    private static ClientBuilder clientBuilder;
+
+    private static OkHttpClient client;
+
+    private ClientBuilder(){
+
+    }
+
+    public static ClientBuilder getIntance(){
+        if(clientBuilder == null){
+            clientBuilder = new ClientBuilder();
+        }
+        return clientBuilder;
+    }
+
     @SuppressWarnings("null")
-    public static OkHttpClient configureClient(final OkHttpClient client) {
+    private OkHttpClient configureClient(OkHttpClient client) {
 
         TrustManager[] trustManagers = new TrustManager[]{new X509TrustManager() {
             @Override
@@ -70,8 +85,12 @@ public class ClientBuilder {
         return client;
     }
 
-    public static OkHttpClient createClient() {
-        final OkHttpClient client = new OkHttpClient();
-        return configureClient(client);
+    public OkHttpClient getClient() {
+        if (client == null){
+            client = new OkHttpClient();
+            return configureClient(client);
+        }  else {
+            return client;
+        }
     }
 }

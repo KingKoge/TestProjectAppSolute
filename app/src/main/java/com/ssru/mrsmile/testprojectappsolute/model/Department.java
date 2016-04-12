@@ -16,6 +16,12 @@ public class Department {
     @SerializedName("Subject")
     private List<Subject> subjects;
 
+    public Department(String department_id, String department_name, List<Subject> subjects) {
+        this.department_id = department_id;
+        this.department_name = department_name;
+        this.subjects = subjects;
+    }
+
     public String getDepartment_id() {
         return department_id;
     }

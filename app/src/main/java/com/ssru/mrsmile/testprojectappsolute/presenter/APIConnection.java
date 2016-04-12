@@ -24,7 +24,7 @@ public class APIConnection {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://mobilemagic.de/cuisinetest/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(ClientBuilder.createClient())
+                .client(ClientBuilder.getIntance().getClient())
                 .build();
 
 

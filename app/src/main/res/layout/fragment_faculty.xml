@@ -18,16 +18,16 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewF1"
                 android:layout_weight="1"
-                android:src="@drawable/image1" />
+                android:src="@drawable/f1" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
+                android:id="@+id/imageViewF2"
                 android:layout_weight="1"
-                android:src="@drawable/image2" />
+                android:src="@drawable/f2" />
         </LinearLayout>
 
         <LinearLayout
@@ -39,16 +39,16 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/imageView3"
+                android:id="@+id/imageViewF3"
                 android:layout_weight="1"
-                android:src="@drawable/image3" />
+                android:src="@drawable/f3" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView4"
+                android:id="@+id/imageViewF4"
                 android:layout_weight="1"
-                android:src="@drawable/image4" />
+                android:src="@drawable/f4" />
         </LinearLayout>
 
 </LinearLayout>
