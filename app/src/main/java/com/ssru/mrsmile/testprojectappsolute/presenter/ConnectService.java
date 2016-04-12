@@ -37,7 +37,6 @@ public class ConnectService extends AsyncTask<Void , Void , List<Faculty>> {
     protected List<Faculty> doInBackground(Void... params) {
         StringBuilder result = new StringBuilder();
 
-
         TrustManager[] trustAllCerts = new TrustManager[] {
             new X509TrustManager() {
 

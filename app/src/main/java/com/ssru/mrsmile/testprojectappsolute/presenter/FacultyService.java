@@ -15,10 +15,7 @@ public class FacultyService {
     private List<Faculty> faculties;
 
     private FacultyService() {
-        faculties.get(0).setResourceImage(R.drawable.f1);
-        faculties.get(1).setResourceImage(R.drawable.f2);
-        faculties.get(2).setResourceImage(R.drawable.f3);
-        faculties.get(3).setResourceImage(R.drawable.f4);
+
     }
 
     public static FacultyService getIntance(){
@@ -31,6 +28,13 @@ public class FacultyService {
     public void setFaculties(List<Faculty> faculties) {
         this.faculties = new ArrayList<>();
         this.faculties.addAll(faculties);
+        if (this.faculties.size() == 4) {
+            this.faculties.get(0).setResourceImage(R.drawable.f1);
+            this.faculties.get(1).setResourceImage(R.drawable.f2);
+            this.faculties.get(2).setResourceImage(R.drawable.f3);
+            this.faculties.get(3).setResourceImage(R.drawable.f4);
+        }
+
     }
 
     public Faculty getFaculty (int position){

@@ -85,7 +85,7 @@ public class AdapterViewDepartment extends BaseAdapter {
 
 
         holder.textViewDepartment.setText(departments.get(position).getDepartment_name());
-//        holder.imageView.setImageResource(getImgId(mContext, imageName));
+        //holder.imageView.setImageResource(getImgId(mContext, imageName));
         holder.imageView.setImageResource(imgId);
 
        convertView.setOnClickListener(new View.OnClickListener() {
@@ -104,11 +104,7 @@ public class AdapterViewDepartment extends BaseAdapter {
 
     public static int getImgId(Context mContext , String img) {
         img = img.trim();
-        Log.e("ImageId" , img);
-        Log.e("ImageResources", mContext.getResources().toString());
-        Log.e("ImagePackageName", mContext.getPackageName());
-        Log.e("ImageCode" , mContext.getResources().getIdentifier("drawable/" + img, null, mContext.getPackageName())+"");
-        return mContext.getResources().getIdentifier("drawable/" + img, null, mContext.getPackageName());
+        return mContext.getResources().getIdentifier(img , "drawable", mContext.getPackageName());
     }
 
     public void filter(String chatText) {

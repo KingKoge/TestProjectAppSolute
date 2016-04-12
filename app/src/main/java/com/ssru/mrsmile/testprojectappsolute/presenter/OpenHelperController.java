@@ -1,5 +1,6 @@
 package com.ssru.mrsmile.testprojectappsolute.presenter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,15 +18,16 @@ import java.util.List;
 public class OpenHelperController {
 
     private OpenHelper helper;
-    private static SQLiteDatabase readDataBase;
-    private static SQLiteDatabase writeDataBase;
+    private SQLiteDatabase readDataBase;
+    private SQLiteDatabase writeDataBase;
+
 
     public OpenHelperController (Context mContext){
         if(helper == null){
             helper = new OpenHelper(mContext);
         }
 
-        readDataBase = helper.getReadableDatabase();
+        readDataBase =  helper.getReadableDatabase();
         writeDataBase = helper.getWritableDatabase();
     }
 
@@ -38,7 +40,7 @@ public class OpenHelperController {
 
         Cursor facultyResult = readDataBase.rawQuery(sql, null);
 
-        if(facultyResult.moveToFirst()){
+        if(facultyResult.moveToFirst()) {
 
             do {
 
@@ -58,20 +60,20 @@ public class OpenHelperController {
 
                         sql = "SELECT * FROM " + helper.TABLE_SUBJECT + " AS s"
                                 + " JOIN " + helper.TABLE_TIMETABLE + " AS t "
-                                + " NO ( s." + helper.SUBJECT_ID + " = t." + helper.SUBJECT_ID + " ) , "
+                                + " ON s." + helper.SUBJECT_ID + " = t." + helper.SUBJECT_ID
                                 + " JOIN " + helper.TABLE_DEPARTMENT + " AS d "
-                                + " NO ( d." + helper.DEPARTMENT_ID + " = t." + helper.DEPARTMENT_ID + " ) "
-                                + " WHERE " + helper.DEPARTMENT_ID
-                                + " = 'd." + departmentResult.getString(departmentResult.getColumnIndex(helper.DEPARTMENT_ID)) + "'";
+                                + " ON d." + helper.DEPARTMENT_ID + " = t." + helper.DEPARTMENT_ID
+                                + " WHERE d." + helper.DEPARTMENT_ID
+                                + " = '" + departmentResult.getString(departmentResult.getColumnIndex(helper.DEPARTMENT_ID)) + "'";
 
                         Cursor subjectResult = readDataBase.rawQuery(sql, null);
 
                         if (subjectResult.moveToFirst()) {
                             do {
                                 subjects.add(new Subject(
-                                        subjectResult.getString(subjectResult.getColumnIndex("s."+helper.SUBJECT_ID)) ,
-                                        subjectResult.getString(subjectResult.getColumnIndex("s."+helper.SUBJECT_NAME)) ,
-                                        subjectResult.getString(subjectResult.getColumnIndex("s."+helper.SUBJECT_SECTION))
+                                        subjectResult.getString(subjectResult.getColumnIndex(helper.SUBJECT_ID)) ,
+                                        subjectResult.getString(subjectResult.getColumnIndex(helper.SUBJECT_NAME)) ,
+                                        subjectResult.getString(subjectResult.getColumnIndex(helper.SUBJECT_SECTION))
                                 ));
                             } while (subjectResult.moveToNext());
                         }
@@ -105,19 +107,57 @@ public class OpenHelperController {
         return faculties;
     }
 
-    public boolean isAddFaculty(){
-        return false;
+    public void saveData(List<Faculty> faculties){
+
+        for (Faculty faculty : faculties){
+            addFaculty(faculty);
+            for (Department department : faculty.getDepartments()) {
+                addDepartment(faculty.getFaculty_id() , department);
+                for (Subject subject : department.getSubjects()) {
+                    addSubject(subject);
+                    addTimeTable(department.getDepartment_id(), subject.getSubject_id());
+                }
+            }
+        }
+
     }
 
-    public boolean isAddDepartment(){
-        return false;
+    public long addFaculty(Faculty faculty){
+
+        ContentValues values = new ContentValues();
+        values.put(helper.FACULTY_ID , faculty.getFaculty_id());
+        values.put(helper.FACULTY_NAME , faculty.getFaculty_name());
+        values.put(helper.FACULTY_IMAGE , faculty.getFaculty_image());
+
+        return writeDataBase.insert(helper.TABLE_FACULTY , null , values);
     }
 
-    public boolean isAddSubject(){
-        return false;
+    private long addDepartment(String faculty_id ,Department department) {
+
+        ContentValues values = new ContentValues();
+        values.put(helper.DEPARTMENT_ID, department.getDepartment_id());
+        values.put(helper.DEPARTMENT_NAME, department.getDepartment_name());
+        values.put(helper.FACULTY_ID , faculty_id);
+
+        return writeDataBase.insert(helper.TABLE_DEPARTMENT , null , values);
     }
 
-    public boolean isAddTimeTable(){
-        return false;
+    private long addSubject(Subject subject) {
+
+        ContentValues values = new ContentValues();
+        values.put(helper.SUBJECT_ID, subject.getSubject_id());
+        values.put(helper.SUBJECT_NAME, subject.getSubject_name());
+        values.put(helper.SUBJECT_SECTION, subject.getSubject_section());
+
+        return writeDataBase.insert(helper.TABLE_SUBJECT, null, values);
+    }
+
+    private long addTimeTable(String departmentId , String subjectId) {
+
+        ContentValues values = new ContentValues();
+        values.put(helper.DEPARTMENT_ID, departmentId);
+        values.put(helper.SUBJECT_ID, subjectId);
+
+        return writeDataBase.insert(helper.TABLE_TIMETABLE, null, values);
     }
 }
