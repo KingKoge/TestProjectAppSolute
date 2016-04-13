@@ -119,7 +119,6 @@ public class OpenHelperController {
                 }
             }
         }
-
     }
 
     public long addFaculty(Faculty faculty){
@@ -159,5 +158,17 @@ public class OpenHelperController {
         values.put(helper.SUBJECT_ID, subjectId);
 
         return writeDataBase.insert(helper.TABLE_TIMETABLE, null, values);
+    }
+
+    public void deleteData(){
+        String sqlDeleteValueTimeTable = "DELETE FROM " + helper.TABLE_TIMETABLE;
+        String sqlDeleteValueSubject = "DELETE FROM " + helper.TABLE_SUBJECT;
+        String sqlDeleteValueDepartment = "DELETE FROM " + helper.TABLE_DEPARTMENT;
+        String sqlDeleteValueFaculty = "DELETE FROM " + helper.TABLE_FACULTY;
+
+        writeDataBase.execSQL(sqlDeleteValueTimeTable);
+        writeDataBase.execSQL(sqlDeleteValueSubject);
+        writeDataBase.execSQL(sqlDeleteValueDepartment);
+        writeDataBase.execSQL(sqlDeleteValueFaculty);
     }
 }

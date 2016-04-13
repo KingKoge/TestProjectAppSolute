@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +12,8 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.ssru.mrsmile.testprojectappsolute.R;
-import com.ssru.mrsmile.testprojectappsolute.presenter.ConnectService;
-import com.ssru.mrsmile.testprojectappsolute.presenter.FacultyService;
-import com.ssru.mrsmile.testprojectappsolute.presenter.OpenHelperController;
+import com.ssru.mrsmile.testprojectappsolute.presenter.APIConnectService;
+import com.ssru.mrsmile.testprojectappsolute.presenter.DataBaseService;
 
 public class SplashScreen extends Activity {
 
@@ -23,8 +21,7 @@ public class SplashScreen extends Activity {
     private Runnable runnable;
     private long delay_time;
     private long time = 3000L;
-    private OpenHelperController helperController;
-    private ConnectService service;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,27 +31,19 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splash_screen);
         handler = new Handler();
 
-        helperController = new OpenHelperController(getApplicationContext());
-
         if (isNetworkOnline()) {
             Log.d("checkNetwork" , "OnLine");
-            service = new ConnectService();
+            APIConnectService service = new APIConnectService(getApplicationContext());
             service.execute();
-
-            Log.d("Service Status : " , service.getStatus()+"");
         } else {
+            DataBaseService dataBaseService = new DataBaseService(getApplicationContext());
+            dataBaseService.execute();
             Log.d("checkNetwork" , "OffLine");
-            Toast.makeText(getApplicationContext() , "ใช้งานออฟไลน์" , Toast.LENGTH_SHORT).show();
-            FacultyService.getIntance().setFaculties(helperController.findFacultyAll());
+            Toast.makeText(getApplicationContext() , "ใช้งานโหมดออฟไลน์" , Toast.LENGTH_SHORT).show();
         }
 
         runnable = new Runnable() {
             public void run() {
-                if (service.getStatus() == AsyncTask.Status.FINISHED && isNetworkOnline()) {
-                    helperController.saveData(FacultyService.getIntance().getFaculties());
-                } else {
-                    FacultyService.getIntance().setFaculties(helperController.findFacultyAll());
-                }
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
